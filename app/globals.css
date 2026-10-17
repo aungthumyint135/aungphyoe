@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background: theme("colors.ink.DEFAULT");
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink font-sans text-bone antialiased;
+    /* `clip` (not `hidden`) so pinning/sticky keep working */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: theme("colors.accent.DEFAULT");
+    color: theme("colors.ink.DEFAULT");
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.accent.DEFAULT");
+    outline-offset: 4px;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.2em] text-accent;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-bone/0 via-bone/30 to-bone/0;
+  }
+
+  .text-shadow-soft {
+    text-shadow: 0 1px 24px rgb(0 0 0 / 0.35);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Scroll story initial states.
+   Before GSAP takes over, scenes that are not on screen at progress 0
+   are hidden so nothing flashes during hydration. GSAP's inline styles
+   override these once the timeline is built; ctx.revert() restores them.
+   Only applies when html.motion is set (see the inline script in layout).
+   ------------------------------------------------------------------ */
+.motion [data-scene]:not([data-scene-initial]) {
+  visibility: hidden;
+}
+
+.motion [data-scene]:not([data-scene-initial]) [data-reveal] {
+  opacity: 0;
+}
+
+/* Character reveal: each char sits in a clipping wrapper */
+[data-char-mask] {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room for descenders and italics */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+[data-char] {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Video status, driven by data attributes (no React re-renders) */
+[data-video-state="error"] [data-video-el],
+[data-video-state="static"] [data-video-el] {
+  display: none;
+}
+
+[data-video-loader] {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+[data-video-state="loading"] [data-video-loader] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-scroll-cue {
+  animation: scroll-cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}

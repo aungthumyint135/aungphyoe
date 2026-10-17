@@ -1,0 +1,39 @@
+export const projects = pgTable('projects', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  slug: varchar('slug', { length: 120 }).unique(),
+  stack: text('stack').array(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const commits = pgTable('commits', {
+  id: serial('id').primaryKey(),
+  projectId: integer('project_id').references(() => projects.id),
+  message: text('message'),
+});
+
+SELECT p.title, count(c.id) AS commits
+FROM projects p
+JOIN commits c ON c.project_id = p.id
+WHERE p.created_at > now() - interval '1 year'
+GROUP BY p.id
+ORDER BY commits DESC
+LIMIT 10;
+
+CREATE INDEX idx_commits_project ON commits (project_id);
+
+const rows = await db
+  .select({ title: projects.title })
+  .from(projects)
+  .where(eq(projects.slug, slug));
+
+server {
+    listen 443 ssl http2;
+    add_header Content-Security-Policy "default-src 'self'";
+    add_header Strict-Transport-Security "max-age=63072000";
+    location /api/ { proxy_pass http://app:8000; }
+}
+
+$ docker compose up -d --build
+$ php artisan migrate --force
+$ npm run build

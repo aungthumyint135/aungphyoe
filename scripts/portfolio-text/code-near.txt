@@ -1,0 +1,37 @@
+Route::middleware('auth:sanctum')
+    ->group(function () {
+        Route::apiResource(
+            'projects',
+            ProjectController::class
+        );
+    });
+
+class ProjectController extends Controller
+{
+    public function store(
+        StoreProjectRequest $request
+    ) {
+        $project = Project::create(
+            $request->validated()
+        );
+
+        return new ProjectResource($project);
+    }
+}
+
+export function ProjectCard({ project }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <article onClick={() => setOpen(!open)}>
+      <h3>{project.title}</h3>
+      <Stack items={project.stack} />
+    </article>
+  );
+}
+
+const res = await fetch('/api/v1/projects', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${token}` },
+  body: JSON.stringify(payload),
+});

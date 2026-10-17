@@ -1,0 +1,9 @@
+
+*.tsbuildinfo
+.DS_Store
+.claude/
+.next
+media-src/
+media-src/*.mp4
+node_modules
+out

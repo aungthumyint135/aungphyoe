@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dev Setup · anime.js</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="index.html"><span class="accent">~/</span>dev-setup</a>
+    <nav>
+      <a href="#gear">Setup</a>
+      <a href="#stats">Stats</a>
+      <a href="setup3d.html">3D view</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">anime.js · development setup</p>
+      <h1 class="title" data-split>My Dev Setup</h1>
+      <p class="sub">AOC 27" for the IDE, Dragon Touch 4K for Claude, MacBook Air M1 on a cooling stand for tests and git — every piece animated with anime.js.</p>
+
+      <div class="controls">
+        <div class="modes" role="group" aria-label="Desk lighting">
+          <button class="mode is-active" data-mode="focus">Focus</button>
+          <button class="mode" data-mode="warm">Warm</button>
+          <button class="mode" data-mode="night">Night</button>
+          <button class="mode" data-mode="off">Off</button>
+        </div>
+        <button id="replay" class="ghost">↻ Replay boot</button>
+        <a class="ghost" href="setup3d.html">Open 3D view →</a>
+      </div>
+      <p class="hint">Tip: type on your keyboard or click the keys</p>
+    </div>
+
+    <div class="scene-wrap">
+      <svg id="scene" viewBox="0 0 1200 700" aria-label="Animated development setup">
+        <defs>
+          <filter id="blur-big" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="45" /></filter>
+          <filter id="blur-mid" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16" /></filter>
+          <filter id="blur-sm" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" /></filter>
+          <clipPath id="clip-aoc"><rect x="372" y="142" width="456" height="246" rx="3" /></clipPath>
+          <clipPath id="clip-dt"><rect x="152" y="240" width="166" height="95" rx="2" /></clipPath>
+          <clipPath id="clip-mat"><rect x="290" y="455" width="580" height="80" rx="7" /></clipPath>
+          <clipPath id="clip-mb"><rect x="906" y="306" width="133" height="90" rx="2" /></clipPath>
+          <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7a5538" />
+            <stop offset="1" stop-color="#5a3d29" />
+          </linearGradient>
+          <linearGradient id="mat" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#163a24" />
+            <stop offset=".45" stop-color="#2a0e12" />
+            <stop offset="1" stop-color="#6a0c0a" />
+          </linearGradient>
+          <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d9dce1" />
+            <stop offset="1" stop-color="#a9adb4" />
+          </linearGradient>
+        </defs>
+
+        <!-- back layer -->
+        <g id="layer-back">
+          <ellipse id="back-glow" class="lit" cx="600" cy="280" rx="330" ry="170" fill="#dbe7ff" opacity=".18" filter="url(#blur-big)" />
+          <g id="leds"></g>
+        </g>
+
+        <!-- front layer -->
+        <g id="layer-front">
+          <!-- desk -->
+          <g id="desk">
+            <rect x="105" y="556" width="22" height="134" fill="#2a1d14" />
+            <rect x="1073" y="556" width="22" height="134" fill="#2a1d14" />
+            <polygon points="120,440 1080,440 1140,540 60,540" fill="url(#wood)" />
+            <rect x="60" y="540" width="1080" height="16" rx="3" fill="#4a3122" />
+          </g>
+
+          <!-- plant -->
+          <g id="plant">
+            <g id="leaves">
+              <ellipse cx="100" cy="372" rx="6" ry="30" fill="#3f8f52" transform="rotate(-28 100 405)" />
+              <ellipse cx="100" cy="368" rx="6" ry="34" fill="#4aa05e" transform="rotate(-8 100 405)" />
+              <ellipse cx="100" cy="370" rx="6" ry="32" fill="#3f8f52" transform="rotate(14 100 405)" />
+              <ellipse cx="100" cy="376" rx="6" ry="27" fill="#4aa05e" transform="rotate(34 100 405)" />
+              <ellipse cx="100" cy="380" rx="5" ry="22" fill="#357a45" transform="rotate(52 100 405)" />
+              <ellipse cx="100" cy="380" rx="5" ry="22" fill="#357a45" transform="rotate(-48 100 405)" />
+            </g>
+            <polygon points="80,440 120,440 115,404 85,404" fill="#b8673f" />
+            <rect x="83" y="402" width="34" height="5" rx="2" fill="#a05833" />
+          </g>
+
+          <!-- Dragon Touch 4K portable monitor -->
+          <g id="dragon" class="device" data-id="dragon">
+            <polygon points="160,348 312,348 296,296 176,296" fill="#23232c" />
+            <rect x="140" y="228" width="190" height="119" rx="5" fill="#0d0d12" stroke="#2a2a36" />
+            <rect x="140" y="340" width="190" height="8" rx="3" fill="#1b1b24" />
+            <rect class="screen-off" x="152" y="240" width="166" height="95" fill="#03030a" />
+            <g clip-path="url(#clip-dt)">
+              <g id="dt-ui" class="screen-ui" opacity="0">
+                <rect x="152" y="240" width="166" height="95" fill="#1f1e1d" />
+                <rect x="152" y="240" width="36" height="95" fill="#191817" />
+                <circle cx="160" cy="249" r="3" fill="#d97757" />
+                <text x="166" y="251.5" class="svg-serif" fill="#f2efe8">Claude</text>
+                <rect x="156" y="258" width="28" height="5" rx="2" fill="#2c2a28" />
+                <rect x="157" y="266" width="22" height="3" rx="1.5" fill="#a8a39a" opacity=".6" />
+                <rect x="157" y="273" width="25" height="3" rx="1.5" fill="#a8a39a" opacity=".6" />
+                <rect id="dt-bubble" x="250" y="246" width="60" height="12" rx="6" fill="#393734" />
+                <circle cx="198" cy="270" r="3" fill="#d97757" />
+                <g id="dt-lines"></g>
+                <rect id="dt-code" x="204" y="304" width="96" height="12" rx="3" fill="#141312" />
+                <rect x="196" y="321" width="116" height="10" rx="5" fill="#2c2a28" />
+                <rect x="302" y="322.5" width="8" height="7" rx="2" fill="#d97757" />
+              </g>
+            </g>
+          </g>
+
+          <!-- AOC 27" main monitor -->
+          <g id="aoc" class="device" data-id="aoc">
+            <path d="M600 432 L520 452 M600 432 L680 452" stroke="#1b1b24" stroke-width="8" stroke-linecap="round" />
+            <rect x="588" y="396" width="24" height="40" fill="#1b1b24" />
+            <rect x="360" y="130" width="480" height="270" rx="10" fill="#0d0d12" stroke="#2a2a36" />
+            <rect x="585" y="394" width="30" height="2" fill="#ff4d4d" />
+            <rect class="screen-off" x="372" y="142" width="456" height="246" fill="#03030a" />
+            <g clip-path="url(#clip-aoc)">
+              <g id="aoc-ui" class="screen-ui" opacity="0">
+                <rect x="372" y="142" width="456" height="246" fill="#1b1b27" />
+                <!-- activity bar + explorer -->
+                <rect x="372" y="142" width="18" height="246" fill="#13131c" />
+                <rect x="377" y="150" width="8" height="8" rx="2" fill="#e6e8ff" />
+                <rect x="377" y="166" width="8" height="8" rx="2" fill="#6a7090" />
+                <rect x="377" y="182" width="8" height="8" rx="2" fill="#6a7090" />
+                <rect x="377" y="198" width="8" height="8" rx="2" fill="#d97757" />
+                <rect x="390" y="142" width="80" height="236" fill="#16161f" />
+                <text x="396" y="154" class="svg-mono tiny" fill="#8a8cb3">EXPLORER</text>
+                <g id="tree"></g>
+                <!-- tabs -->
+                <rect x="470" y="142" width="358" height="12" fill="#16161f" />
+                <rect x="470" y="142" width="58" height="12" fill="#1b1b27" />
+                <rect x="470" y="142" width="58" height="1.5" fill="#7aa2f7" />
+                <text x="476" y="150.5" class="svg-mono tiny" fill="#ffffff">main.js</text>
+                <text x="536" y="150.5" class="svg-mono tiny" fill="#8a8cb3">style.css</text>
+                <text x="590" y="150.5" class="svg-mono tiny" fill="#8a8cb3">index.html</text>
+                <g id="code"></g>
+                <rect id="cursor" x="494" y="159" width="1.2" height="9" fill="#e6e8ff" />
+                <!-- terminal -->
+                <rect x="470" y="330" width="358" height="48" fill="#14141d" />
+                <rect x="470" y="330" width="358" height=".6" fill="#2a2a3c" />
+                <text x="476" y="339" class="svg-mono tiny" fill="#e6e8ff">TERMINAL</text>
+                <g id="term"></g>
+                <!-- status bar -->
+                <rect x="372" y="378" width="456" height="10" fill="#5b4dd6" />
+                <text x="378" y="385.5" class="svg-mono tiny" fill="#ffffff">⎇ main  ✓ 0  ⚠ 0</text>
+                <text x="822" y="385.5" class="svg-mono tiny" fill="#ffffff" text-anchor="end">JavaScript  ·  Claude ●</text>
+              </g>
+            </g>
+            <!-- monitor light bar -->
+            <g id="lightbar">
+              <rect x="430" y="117" width="340" height="11" rx="5.5" fill="#1a1a22" />
+              <rect x="590" y="126" width="20" height="8" fill="#1a1a22" />
+              <rect class="lit" x="440" y="126.5" width="320" height="2" rx="1" fill="#dbe7ff" />
+            </g>
+          </g>
+
+          <!-- laptop cooling stand + MacBook Air -->
+          <g id="stand" class="device" data-id="stand">
+            <rect x="892" y="417" width="6" height="25" fill="#24242e" />
+            <rect x="1047" y="417" width="6" height="25" fill="#24242e" />
+            <g class="fan">
+              <circle class="lit-stroke" cx="935" cy="429" r="10" fill="#101016" stroke="#dbe7ff" stroke-width="1.5" />
+              <g class="fan-blades"><path d="M935 429 l0 -8 M935 429 l7 4 M935 429 l-7 4" stroke="#3a3a48" stroke-width="3" stroke-linecap="round" /></g>
+            </g>
+            <g class="fan">
+              <circle class="lit-stroke" cx="1010" cy="429" r="10" fill="#101016" stroke="#dbe7ff" stroke-width="1.5" />
+              <g class="fan-blades"><path d="M1010 429 l0 -8 M1010 429 l7 4 M1010 429 l-7 4" stroke="#3a3a48" stroke-width="3" stroke-linecap="round" /></g>
+            </g>
+            <polygon points="880,418 1065,418 1060,409 885,409" fill="#2a2a38" />
+            <rect class="lit" x="884" y="417" width="177" height="1.6" fill="#dbe7ff" />
+          </g>
+          <g id="macbook" class="device" data-id="macbook">
+            <polygon points="886,409 1059,409 1051,401 894,401" fill="url(#silver)" />
+            <rect x="900" y="300" width="145" height="102" rx="5" fill="url(#silver)" />
+            <rect x="903" y="303" width="139" height="96" rx="3" fill="#050507" />
+            <rect class="screen-off" x="906" y="306" width="133" height="90" fill="#03030a" />
+            <g clip-path="url(#clip-mb)">
+              <g id="mb-ui" class="screen-ui" opacity="0">
+                <rect x="906" y="306" width="133" height="90" fill="#0d0d14" />
+                <circle cx="912" cy="312" r="2" fill="#ff5f57" />
+                <circle cx="918" cy="312" r="2" fill="#febc2e" />
+                <circle cx="924" cy="312" r="2" fill="#28c840" />
+                <g id="mb-lines"></g>
+              </g>
+            </g>
+          </g>
+
+          <!-- mug -->
+          <g id="mug">
+            <g id="steam" stroke="#ffffff55" stroke-width="2" fill="none" stroke-linecap="round">
+              <path d="M212 446 q-5 -8 0 -16 q5 -8 0 -16" />
+              <path d="M220 446 q-5 -8 0 -16 q5 -8 0 -16" />
+              <path d="M228 446 q-5 -8 0 -16 q5 -8 0 -16" />
+            </g>
+            <path d="M234 462 q12 0 12 10 q0 10 -12 10" fill="none" stroke="#ece8df" stroke-width="4" />
+            <rect x="205" y="452" width="30" height="36" rx="4" fill="#ece8df" />
+            <ellipse cx="220" cy="454" rx="13" ry="3" fill="#3b2414" />
+          </g>
+
+          <!-- notebook + pen -->
+          <g id="notebook">
+            <polygon points="958,470 1062,476 1052,522 948,516" fill="#2c3a56" />
+            <polygon points="962,472 1058,477 1056,483 960,478" fill="#f1ede4" />
+            <line x1="975" y1="508" x2="1040" y2="486" stroke="#111" stroke-width="3" stroke-linecap="round" />
+          </g>
+
+          <!-- XL desk mat (original "battle map" print) -->
+          <g id="mat" class="device" data-id="mat">
+            <rect x="290" y="455" width="580" height="80" rx="7" fill="url(#mat)" />
+            <g clip-path="url(#clip-mat)">
+              <ellipse cx="320" cy="525" rx="110" ry="40" fill="#2bd96a" opacity=".22" filter="url(#blur-mid)" />
+              <ellipse cx="840" cy="462" rx="110" ry="40" fill="#ff3a1a" opacity=".28" filter="url(#blur-mid)" />
+              <path d="M290 462 C450 478 650 510 870 530" stroke="#3fb8ff" stroke-opacity=".35" stroke-width="10" fill="none" />
+            </g>
+            <text x="858" y="526" text-anchor="end" class="svg-serif big" fill="#ffffff" opacity=".22">DOTA 2</text>
+            <rect x="290" y="455" width="580" height="80" rx="7" fill="none" stroke="#000" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 3" />
+          </g>
+
+          <!-- light from the monitor light bar -->
+          <ellipse id="desk-light" cx="585" cy="484" rx="290" ry="42" fill="#fff4dc" opacity=".14" filter="url(#blur-mid)" pointer-events="none" />
+
+          <!-- AULA transparent keyboard -->
+          <g id="keyboard" class="device" data-id="keyboard">
+            <rect class="lit" x="428" y="472" width="284" height="48" rx="4" fill="#dbe7ff" opacity=".22" filter="url(#blur-sm)" />
+            <rect x="420" y="466" width="300" height="58" rx="6" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".45" />
+            <g id="keys"></g>
+          </g>
+
+          <!-- mouse -->
+          <g id="mouse" class="device" data-id="mouse">
+            <ellipse cx="805" cy="496" rx="13" ry="19" fill="#1b1b24" stroke="#30303c" />
+            <line x1="805" y1="478" x2="805" y2="492" stroke="#30303c" stroke-width="2" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ SETUP ============ -->
+  <section id="gear" class="section">
+    <h2 class="section-title reveal">What's on the desk</h2>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section id="stats" class="section">
+    <h2 class="section-title reveal">By the numbers</h2>
+    <div class="stats">
+      <div class="stat reveal"><span class="num" data-to="3">0</span><span class="unit">screens</span></div>
+      <div class="stat reveal"><span class="num" data-to="27">0</span><span class="unit">inch main monitor</span></div>
+      <div class="stat reveal"><span class="num" data-to="2">0</span><span class="unit">cooling fans</span></div>
+      <div class="stat reveal"><span class="num" data-to="4">0</span><span class="unit">lighting modes</span></div>
+    </div>
+  </section>
+
+  <footer class="footer">Made with <a href="https://animejs.com" target="_blank" rel="noopener">anime.js</a> · <a href="setup3d.html">see it in 3D</a></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
